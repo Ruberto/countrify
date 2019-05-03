@@ -14,5 +14,6 @@
     "states"
   ],
   "author": "Ruberto Paluo",
-  "license": "ISC"
+  "license": "MIT",
+  "repository": "Ruberto/countrify"
 }
