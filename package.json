@@ -4,7 +4,7 @@
   "description": "A package to assist in the disection of ISO-3166-1(country) and ISO-3166-2(subdivision) ISO standards.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "keywords": [
     "ISO-3166-1",
@@ -15,5 +15,8 @@
   ],
   "author": "Ruberto Paluo",
   "license": "MIT",
-  "repository": "Ruberto/countrify"
+  "repository": "Ruberto/countrify",
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
 }
