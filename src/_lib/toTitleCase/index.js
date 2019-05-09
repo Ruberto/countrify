@@ -5,6 +5,10 @@ export default function toTitleCase(dirtyText) {
     )
   }
 
+  if (dirtyText === null || dirtyText === true || dirtyText === false) {
+    return NaN
+  }
+
   var text = String(dirtyText)
 
   return text.toLowerCase()

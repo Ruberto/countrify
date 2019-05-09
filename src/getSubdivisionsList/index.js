@@ -2,22 +2,22 @@ import cleanCountryId from '../_lib/cleanCountryId/index.js'
 import cleanLocale from '../_lib/cleanLocale/index.js'
 
 /**
- * @name getSubdivisionsDetail
+ * @name getSubdivisionsList
  * @category Country Helpers
  * @summary Returns an object with subdivision information.
  *
  * @param {String} countryName - the date to be changed
  * @param {string} locale - the amount of days to be added
- * @returns {Object} the new date with the days added
+ * @returns {Array} an array of the subdivision names in the locale of your choice
  * @throws {TypeError} 2 arguments required
  *
  * @example
- * // Add 10 days to 1 September 2014:
- * var result = getSubdivisionsDetail()
- * //=> Thu Sep 11 2014 00:00:00
+ * // Get all subdivision names for South Africa('ZA'), in english('en'):
+ * var result = getSubdivisionsList('ZA', 'en');
+ * //=> ['Eastern Cape', 'Free State', 'Gauteng', 'Limpopo', 'Mpumalanga', 'Northern Cape', 'KwaZulu-Natal', 'North West', 'Western Cape']
  */
 
-export default function getSubdivisionsDetail(dirtyCountryId, dirtyLocale) {
+export default function getSubdivisionsList(dirtyCountryId, dirtyLocale) {
   if (arguments.length < 2) {
     throw new TypeError(
       '2 arguments required, but only ' + arguments.length + ' present'

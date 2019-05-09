@@ -1,5 +1,5 @@
 /**
- * @name allCountries
+ * @name allCountriesList
  * @category Country Helpers
  * @summary Returns all the countries as an array of strings.
  *
@@ -10,10 +10,10 @@
  *
  * @example
  * // Add 10 days to 1 September 2014:
- * var result = allCountries()
+ * var result = allCountriesList()
  * //=> Thu Sep 11 2014 00:00:00
  */
 
-export default function allCountries() {
+export default function allCountriesList() {
 
 }
