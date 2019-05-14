@@ -1,19 +1,19 @@
+const allCountries = require('../lib/countries');
+
 /**
  * @name getAlpha3
  * @category Country Helpers
  * @summary Returns all the countries as an array of strings.
- *
- * @param {Date|Number} date - the date to be changed
- * @param {Number} amount - the amount of days to be added
- * @returns {Date} the new date with the days added
- * @throws {TypeError} 2 arguments required
- *
- * @example
- * // Add 10 days to 1 September 2014:
- * var result = getAlpha3()
- * //=> Thu Sep 11 2014 00:00:00
  */
+const getAlpha3 = (search) => {
+  const countries = allCountries();
+  const found = countries.find(country => country.name === search || country.alpha2 === search);
 
-export default function getAlpha3() {
+  if (found !== undefined) {
+    return found.alpha3;
+  }
 
-}
+  return undefined;
+};
+
+module.exports = getAlpha3;
