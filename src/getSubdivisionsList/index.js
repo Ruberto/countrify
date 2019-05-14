@@ -1,29 +1,50 @@
-import cleanCountryId from '../_lib/cleanCountryId/index.js'
-import cleanLocale from '../_lib/cleanLocale/index.js'
+const subdivisionsFor = require('../lib/subdivisions');
+const allCountriesList = require('../allCountriesList');
+
+const alpha3ToAlpha2 = (alpha3) => {
+  const countries = allCountriesList('alpha2', 'alpha3');
+  const country = countries.find(c => c.alpha3 === alpha3);
+  if (country !== undefined) {
+    return country.alpha2;
+  }
+
+  return alpha3;
+};
+
+const getEffectiveCountryId = (countryId) => {
+  if (countryId === undefined) return 'US';
+
+  const upperCaseCountryId = countryId.toUpperCase();
+  if (upperCaseCountryId.length === 3) {
+    return alpha3ToAlpha2(upperCaseCountryId);
+  }
+
+  return upperCaseCountryId;
+};
 
 /**
  * @name getSubdivisionsList
  * @category Country Helpers
  * @summary Returns an object with subdivision information.
- *
- * @param {String} countryName - the date to be changed
- * @param {string} locale - the amount of days to be added
- * @returns {Array} an array of the subdivision names in the locale of your choice
- * @throws {TypeError} 2 arguments required
- *
- * @example
- * // Get all subdivision names for South Africa('ZA'), in english('en'):
- * var result = getSubdivisionsList('ZA', 'en');
- * //=> ['Eastern Cape', 'Free State', 'Gauteng', 'Limpopo', 'Mpumalanga', 'Northern Cape', 'KwaZulu-Natal', 'North West', 'Western Cape']
  */
 
-export default function getSubdivisionsList(dirtyCountryId, dirtyLocale) {
-  if (arguments.length < 2) {
-    throw new TypeError(
-      '2 arguments required, but only ' + arguments.length + ' present'
-    )
+const getSubdivisionsList = (countryId, locale) => {
+  const effectiveCountryId = getEffectiveCountryId(countryId); countryId === undefined ? 'US' : countryId.toUpperCase();
+  const effectiveLocale = locale === undefined ? 'en' : locale;
+
+  const subdivisions = subdivisionsFor(effectiveCountryId);
+  if (subdivisions === undefined) {
+    return [];
   }
 
-  var countryId = cleanCountryId(dirtyCountryId)
-  var locale = cleanLocale(dirtyLocale)
-}
+  return Object.values(subdivisions).map((subdivision) => {
+    const { translations } = subdivision;
+    if (translations[effectiveLocale] !== undefined) {
+      return translations[effectiveLocale];
+    }
+
+    return Object.values(translations)[0];
+  });
+};
+
+module.exports = getSubdivisionsList;
